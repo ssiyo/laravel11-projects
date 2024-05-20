@@ -52,11 +52,24 @@ class User extends Authenticatable
     }
     public function reciever()
     {
-        return $this->hasOne(Reciever::class);
+        return $this->morphOne(Reciever::class, "recieveable");
     }
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function inboxes()
+    {
+        return $this->hasMany(Inbox::class);
+    }
+
+    public function contextLogue(String $cname){
+        $context = $this->getContextByName($cname);
+        if ($context->source_type == 'u'){
+            return $this->dialogue($context);
+        }
+        return $this->multilogue($context);
     }
     public function dialogue(Reciever $context){
         $sent = $this->messages()->where("reciever_id", $context->id);
@@ -66,15 +79,18 @@ class User extends Authenticatable
     public function multilogue(Reciever $context){
         return $context->group->messages();
     }
-    public function inboxs(){
-        return $this->hasMany(Inbox::class);
+    public function contextInbox(Reciever $context){
+        if ($context->source_type == 'u'){
+            return $this->partnerInbox($context);
+        }
+        return $this->groupInbox($context);
     }
     public function groupInbox(Reciever $context){
-        return $this->inboxs()->intersection($context->messages())->count();
+        return $this->inboxes()->intersection($context->messages())->count();
     }
-    public function parterInbox(Reciever $context)
+    public function partnerInbox(Reciever $context)
     {
-        return $this->inboxs()->intersection($this->reciever->messages()->where("user_id", $context->id))->count();
+        return $this->inboxes()->intersection($this->reciever->messages()->where("user_id", $context->id))->count();
     }
 
     public function getContextNames()
@@ -95,5 +111,12 @@ class User extends Authenticatable
             return Group::where("groupname", $sourcename)->first()->reciever();
         }
         return User::where("username", $sourcename)->first()->reciever();
+    }
+    public function contextInfo(){
+        $cinfo = [];
+        foreach($this->getContextNames() as $c){
+            $cinfo[$c] = $this->contextIbox($this->getContextByName($c));
+        }
+        return $cinfo;
     }
 }

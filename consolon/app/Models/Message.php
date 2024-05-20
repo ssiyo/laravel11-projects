@@ -21,7 +21,7 @@ class Message extends Model
     {
         return $this->belongsTo(Reciever::class);
     }
-    public function inboxs()
+    public function inboxes()
     {
         return $this->hasMany(Inbox::class);
     }

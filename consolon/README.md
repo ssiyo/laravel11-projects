@@ -48,7 +48,8 @@ consolon tailwind template
           <div class="text-blue-600">> inbox <</div>
       <div class="text-gray-400"><span class="text-xs text-gray-400">16:00</span> How are you?</div>
       <div class="text-gray-400"><span class="text-xs text-gray-400">17:12</span> I want to ask you something urgent.</div>
-      <div class="text-yellow-400"><span class="text-xs text-gray-400">17:12</span> /block</div>
+      <div class="text-black font-bold bg-yellow-400 w-fit px-2">/block</div>
+      <div class="text-green-400"><span class="text-gray-500 pr-4">12:00</span> <b>Yuri</b>: How are you?</div>
 
       <div style="bottom:0;padding-bottom:0.5em;" class="bg-black fixed w-full flex gap-1 border-t border-gray-600 pt-2 text-white">[17:16:01] <input class="w-full bg-transparent outline-none" placeholder="Kinzo:" /></div>
     </div>

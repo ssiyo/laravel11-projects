@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('recievers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("source_id");
+            $table->string("source_type");
             $table->timestamps();
         });
     }

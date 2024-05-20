@@ -16,7 +16,7 @@ class Group extends Model
         return $this->belongsTo(User::class);
     }
     public function reciever(){
-        return $this->hasOne(Reciever::class);
+        return $this->morphOne(Reciever::class, "recieveable");
     }
     public function messages(){
         return $this->reciever()->messages();

@@ -12,6 +12,9 @@ class Reciever extends Model
         "source_type"
     ];
     use HasFactory;
+    public function recieveable(){
+        return $this->morphTo();
+    }
     public function group()
     {
         return $this->belongsTo(Group::class);

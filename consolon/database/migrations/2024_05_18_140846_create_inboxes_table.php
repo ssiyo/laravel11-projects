@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('inboxes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("message_id");
+            $table->unsignedBigInteger("user_id");
             $table->timestamps();
         });
     }
